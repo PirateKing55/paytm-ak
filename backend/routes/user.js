@@ -76,6 +76,12 @@ router.post("/signin", async (req, res) => {
     return;
   }
 
+  if (!user) {
+    res.status(411).json({
+      message: "Incorrect username or password",
+    });
+  }
+
   res.status(411).json({
     message: "something went wrong while signing in",
   });
