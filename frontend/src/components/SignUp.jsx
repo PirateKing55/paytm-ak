@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 export const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -46,29 +47,38 @@ export const SignUp = () => {
       <Button
         label={"Sign Up"}
         onclick={async () => {
-          const response = await axios.post(
-            "http://localhost:3000/api/v1/user/signup",
-            {
-              username,
-              firstName,
-              lastName,
-              password,
+          try {
+            const response = await axios.post(
+              "https://paytm-ak.onrender.com/api/v1/user/signup",
+              {
+                username: email,
+                firstName: firstName,
+                lastName: lastName,
+                password: password,
+              }
+            );
+            localStorage.setItem("token", response.data.token);
+            navigate("/dashboard");
+          } catch (error) {
+            // handle errors
+            if (error.response) {
+              // The request was made and the server responded with a status code
+              // that falls out of the range of 2xx
+              toast.error(error.response.data.message);
+            } else if (error.request) {
+              // The request was made but no response was received
+              console.error("No Response Received");
+            } else {
+              // Something happened in setting up the request that triggered an Error
+              console.error("Request Error:", error.message);
             }
-          );
-          const statusCode = response.status;
-
-          if (!(statusCode === 200)) {
-            return console.log(statusCode, response.data.message);
           }
-
-          console.log(response.data.message);
-          localStorage.setItem("token", response.data.token);
-          navigate("/dashboard");
         }}
       />
+      <Toaster />
       <p className="text-slate-300 text-center mt-[10px]">
         Already have an account?{" "}
-        <Link className="cursor-pointer underline" to={"/signin"}>
+        <Link className="underline cursor-pointer" to={"/signin"}>
           Login
         </Link>
       </p>

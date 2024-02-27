@@ -44,6 +44,7 @@ router.post("/signup", async (req, res) => {
   res.json({
     message: "User created successfully",
     token: token,
+    firstName: user.firstName,
   });
 });
 
@@ -69,6 +70,7 @@ router.post("/signin", async (req, res) => {
 
     res.json({
       token: token,
+      firstName: user.firstName,
     });
 
     return;
