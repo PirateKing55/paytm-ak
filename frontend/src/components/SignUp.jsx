@@ -25,24 +25,28 @@ export const SignUp = () => {
         onChange={(e) => {
           setFirstName(e.target.value);
         }}
+        placeholder={"Monkey"}
       />
       <p className="text-white font-medium mb-[5px]">Last Name</p>
       <InputBox
         onChange={(e) => {
           setLastName(e.target.value);
         }}
+        placeholder={"Luffy"}
       />
       <p className="text-white font-medium mb-[5px]">Email</p>
       <InputBox
         onChange={(e) => {
           setEmail(e.target.value);
         }}
+        placeholder={"luffy@xyz.com"}
       />
       <p className="text-white font-medium mb-[5px]">Password</p>
       <InputBox
         onChange={(e) => {
           setPassword(e.target.value);
         }}
+        placeholder={""}
       />
       <Button
         label={"Sign Up"}
@@ -58,6 +62,7 @@ export const SignUp = () => {
               }
             );
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("firstName", response.data.firstName);
             navigate("/dashboard");
           } catch (error) {
             // handle errors

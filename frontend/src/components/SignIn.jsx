@@ -23,12 +23,14 @@ export const SignIn = () => {
         onChange={(e) => {
           setEmail(e.target.value);
         }}
+        placeholder={"luffy@xyz.com"}
       />
       <p className="text-white font-medium mb-[5px]">Password</p>
       <InputBox
         onChange={(e) => {
           setPassword(e.target.value);
         }}
+        placeholder={""}
       />
       <Button
         label={"Sign In"}
@@ -42,6 +44,7 @@ export const SignIn = () => {
               }
             );
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("firstName", response.data.firstName);
             navigate("/dashboard");
           } catch (error) {
             // handle errors
